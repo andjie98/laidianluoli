@@ -6,7 +6,7 @@ from astrbot.api.star import Context, Star, register
 from astrbot.api import logger, AstrBotConfig
 from astrbot.api.message_components import Image
 
-@register("loli", "andjie98", "获取随机二次元图片", "1.0.0")
+@register("loli", "andjie98", "获取随机二次元图片", "1.1.0")
 class MyPlugin(Star):
     def __init__(self, context: Context, config: AstrBotConfig):
         super().__init__(context)
