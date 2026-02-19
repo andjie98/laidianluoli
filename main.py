@@ -2,6 +2,7 @@ import aiohttp
 from astrbot.api.event import filter, AstrMessageEvent, MessageEventResult
 from astrbot.api.star import Context, Star, register
 from astrbot.api import logger
+from astrbot.api.message_components import Image
 
 @register("loli", "YourName", "获取随机二次元图片", "1.0.0")
 class MyPlugin(Star):
@@ -19,7 +20,7 @@ class MyPlugin(Star):
                 async with session.get("https://www.loliapi.com/acg/?type=url") as response:
                     if response.status == 200:
                         image_url = await response.text()
-                        yield event.plain_result(image_url.strip())
+                        yield event.image_result(image_url.strip())
                     else:
                         yield event.plain_result("获取图片失败，请稍后重试")
         except Exception as e:
