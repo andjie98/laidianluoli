@@ -12,8 +12,8 @@ class MyPlugin(Star):
 
     def load_config(self):
         """加载配置文件"""
-        from astrbot.api.provider import AstrBotConfigProvider
-        config_provider = self.context.get_provider(AstrBotConfigProvider)
+        import json
+        import os
         
         default_config = {
             "api_url": "https://www.loliapi.com/acg/",
@@ -21,10 +21,13 @@ class MyPlugin(Star):
         }
         
         try:
-            if config_provider:
-                config = config_provider.get_plugin_config(self.register_info.name)
-                if config:
-                    return config
+            config_path = os.path.join(os.path.dirname(__file__), "config.yaml")
+            if os.path.exists(config_path):
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    import yaml
+                    config = yaml.safe_load(f)
+                    if config:
+                        default_config.update(config)
         except Exception as e:
             logger.error(f"加载配置文件失败: {e}")
         
